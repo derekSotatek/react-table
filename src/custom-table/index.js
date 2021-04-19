@@ -1,32 +1,78 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTable, useRowSelect, useSortBy } from 'react-table';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import update from 'immutability-helper';
-import makeData from './makeData';
+import Row from './row';
+import IndeterminateCheckbox from './indeterminate-checkbox';
 import './style.css';
 
-const IndeterminateCheckbox = React.forwardRef(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef();
-    const resolvedRef = ref || defaultRef;
+const fakeData = [
+  {
+    age: 27,
+    firstName: "teacher-cek7x",
+    id: 0,
+    lastName: "company-vfqib",
+    progress: 88,
+    status: "relationship",
+    visits: 64,
+  },
+  {
+    age: 14,
+    firstName: "resource-a3nt8",
+    id: 1,
+    lastName: "ball-in5d9",
+    progress: 37,
+    status: "relationship",
+    visits: 13,
+  },
+  {
+    age: 15,
+    firstName: "derek",
+    id: 2,
+    lastName: "derek",
+    progress: 37,
+    status: "relationship",
+    visits: 13,
+  },
+];
 
-    React.useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate;
-    }, [resolvedRef, indeterminate]);
+const fakeColumns = [
+  {
+    Header: 'ID',
+    accessor: 'id',
+    sortType: 'basic',
+  },
+  {
+    Header: 'First Name',
+    accessor: 'firstName',
+    sortType: 'basic'
+  },
+  {
+    Header: 'Last Name',
+    accessor: 'lastName',
+    sortType: 'basic',
+  },
+  {
+    Header: 'Age',
+    accessor: 'age',
+  },
+  {
+    Header: 'Visits',
+    accessor: 'visits',
+  },
+  {
+    Header: 'Status',
+    accessor: 'status',
+  },
+  {
+    Header: 'Profile Progress',
+    accessor: 'progress',
+  },
+];
 
-    return (
-      <input type="checkbox" ref={resolvedRef} {...rest} />
-    );
-  }
-);
-
-const Table = ({ columns, data }) => {
-  const [records, setRecords] = React.useState(data);
-
-  const getRowId = React.useCallback(row => {
-    return row.id
-  }, []);
+const Table = () => {
+  const [records, setRecords] = useState(fakeData);
 
   const {
     getTableProps,
@@ -34,13 +80,10 @@ const Table = ({ columns, data }) => {
     headerGroups,
     rows,
     prepareRow,
-    selectedFlatRows,
-    state: { selectedRowIds },
   } = useTable(
     {
       data: records,
-      columns,
-      getRowId,
+      columns: fakeColumns,
     },
     hooks => {
       hooks.visibleColumns.push(columns => [
@@ -62,15 +105,6 @@ const Table = ({ columns, data }) => {
             </div>
           ),
         },
-        {
-          id: 'arrow',
-          Cell: ({ row }) => (
-            <div>
-              <span className="up">up</span>
-              <span className="down">down</span>
-            </div>
-          ),
-        },
         ...columns,
       ])
     },
@@ -80,169 +114,60 @@ const Table = ({ columns, data }) => {
 
   const moveRow = (dragIndex, hoverIndex) => {
     const dragRecord = records[dragIndex];
-    setRecords(
-      update(records, {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, dragRecord],
-        ],
-      })
-    )
+    setRecords(update(records, {
+      $splice: [
+        [dragIndex, 1],
+        [hoverIndex, 0, dragRecord],
+      ],
+    }));
+  };
+
+  const moveRowUp = (moveIndex) => {
+    const targetIndex = moveIndex - 1;
+    moveRow(moveIndex, targetIndex);
+  };
+
+  const moveRowDown = (moveIndex) => {
+    const targetIndex = moveIndex + 1;
+    moveRow(moveIndex, targetIndex);
   };
 
   return (
     <DndProvider backend={HTML5Backend}>
       <table {...getTableProps()}>
         <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                {column.render('Header')}
-                <span>
-                  {column.isSorted ? column.isSortedDesc ? 'down' : 'up' : ''}
-                </span>
-              </th>
-            ))}
-            <th></th>
-          </tr>
-        ))}
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render('Header')}
+                  <span>
+                    {column.isSorted ? column.isSortedDesc ? 'down' : 'up' : ''}
+                  </span>
+                </th>
+              ))}
+              <th></th>
+            </tr>
+          ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-        {rows.map(
-          (row, index) =>
-            prepareRow(row) || (
-              <Row
-                index={index}
-                row={row}
-                moveRow={moveRow}
-                {...row.getRowProps()}
-              />
-            )
-        )}
+          {rows.map(
+            (row, index) =>
+              prepareRow(row) || (
+                <Row
+                  index={index}
+                  row={row}
+                  moveRow={moveRow}
+                  moveRowUp={moveRowUp}
+                  moveRowDown={moveRowDown}
+                  {...row.getRowProps()}
+                />
+              )
+          )}
         </tbody>
       </table>
     </DndProvider>
   )
 };
 
-const DND_ITEM_TYPE = 'row';
-
-const Row = ({ row, index, moveRow }) => {
-  const dropRef = React.useRef(null);
-  const dragRef = React.useRef(null);
-
-  const [, drop] = useDrop({
-    accept: DND_ITEM_TYPE,
-    hover(item, monitor) {
-      if (!dropRef.current) {
-        return;
-      }
-      const dragIndex = item.index;
-      const hoverIndex = index;
-      // Don't replace items with themselves
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-      // Determine rectangle on screen
-      const hoverBoundingRect = dropRef.current.getBoundingClientRect();
-      // Get vertical middle
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      // Determine mouse position
-      const clientOffset = monitor.getClientOffset();
-      // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-      // Dragging downwards
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
-      // Dragging upwards
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
-      // Time to actually perform the action
-      moveRow(dragIndex, hoverIndex);
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
-      item.index = hoverIndex;
-    },
-  });
-
-  const [{ isDragging }, drag, preview] = useDrag({
-    type: DND_ITEM_TYPE,
-    item: { type: DND_ITEM_TYPE, index },
-    collect: monitor => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-  const opacity = isDragging ? 0 : 1;
-
-  preview(drop(dropRef));
-  drag(dragRef);
-
-  return (
-    <tr ref={dropRef} style={{ opacity }}>
-      {row.cells.map(cell => {
-        return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-      })}
-      <td ref={dragRef}>move</td>
-    </tr>
-  )
-};
-
-const CustomTable = props => {
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: 'ID',
-        accessor: 'id',
-        sortType: 'basic',
-      },
-      {
-        Header: 'First Name',
-        accessor: 'firstName',
-        sortType: 'basic'
-      },
-      {
-        Header: 'Last Name',
-        accessor: 'lastName',
-        sortType: 'basic',
-      },
-      {
-        Header: 'Age',
-        accessor: 'age',
-      },
-      {
-        Header: 'Visits',
-        accessor: 'visits',
-      },
-      {
-        Header: 'Status',
-        accessor: 'status',
-      },
-      {
-        Header: 'Profile Progress',
-        accessor: 'progress',
-      },
-    ],
-    []
-  );
-
-  const data = React.useMemo(() => makeData(20), []);
-  return (
-    <Table columns={columns} data={data} />
-  )
-};
-
-CustomTable.propTypes = {
-
-};
-
-export default CustomTable;
+export default Table;
