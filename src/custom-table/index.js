@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTable, useRowSelect } from 'react-table';
+import { useTable, useRowSelect, useSortBy } from 'react-table';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import update from 'immutability-helper';
@@ -42,7 +42,6 @@ const Table = ({ columns, data }) => {
       columns,
       getRowId,
     },
-    useRowSelect,
     hooks => {
       hooks.visibleColumns.push(columns => [
         // Let's make a column for selection
@@ -74,7 +73,9 @@ const Table = ({ columns, data }) => {
         },
         ...columns,
       ])
-    }
+    },
+    useSortBy,
+    useRowSelect,
   );
 
   const moveRow = (dragIndex, hoverIndex) => {
@@ -96,7 +97,12 @@ const Table = ({ columns, data }) => {
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                {column.render('Header')}
+                <span>
+                  {column.isSorted ? column.isSortedDesc ? 'down' : 'up' : ''}
+                </span>
+              </th>
             ))}
             <th></th>
           </tr>
@@ -197,14 +203,17 @@ const CustomTable = props => {
       {
         Header: 'ID',
         accessor: 'id',
+        sortType: 'basic',
       },
       {
         Header: 'First Name',
         accessor: 'firstName',
+        sortType: 'basic'
       },
       {
         Header: 'Last Name',
         accessor: 'lastName',
+        sortType: 'basic',
       },
       {
         Header: 'Age',
