@@ -63,20 +63,24 @@ const Row = ({ row, index, moveRow, moveRowUp, moveRowDown }) => {
 
   return (
     <tr ref={dropRef} style={{ opacity }}>
-      {row.cells.map(cell => {
+
+      {row.cells.map((cell, i) => {
+        if (i === 1) {
+          return <td {...cell.getCellProps()}>
+            <button ref={dragRef}>
+              move
+            </button>
+            <button onClick={() => moveRowUp(index)}>
+              up
+            </button>
+            <button onClick={() => moveRowDown(index)}>
+              down
+            </button>
+            {/* {cell.render('Cell')} */}
+          </td>
+        }
         return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
       })}
-      <td>
-        <button ref={dragRef}>
-          move
-        </button>
-        <button onClick={() => moveRowUp(index)}>
-          up
-        </button>
-        <button onClick={() => moveRowDown(index)}>
-          down
-        </button>
-      </td>
     </tr>
   )
 };

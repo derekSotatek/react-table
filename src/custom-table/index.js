@@ -39,6 +39,11 @@ const fakeData = [
 
 const fakeColumns = [
   {
+    Header: 'Move',
+    accessor: 'move',
+    sortType: 'basic',
+  },
+  {
     Header: 'ID',
     accessor: 'id',
     sortType: 'basic',
