@@ -128,6 +128,7 @@ const Table = () => {
   };
 
   const moveRowUp = (moveIndex) => {
+    if (moveIndex === 0) return;
     const targetIndex = moveIndex - 1;
     moveRow(moveIndex, targetIndex);
   };
