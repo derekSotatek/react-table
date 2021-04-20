@@ -152,7 +152,6 @@ const Table = () => {
                   </span>
                 </th>
               ))}
-              <th></th>
             </tr>
           ))}
         </thead>
