@@ -57,8 +57,11 @@ const TableRow = ({ values, moveRowDown, moveRowUp, onPick, cell }) => {
           down
         </button>
       </td>
-      <td><RowHandler>{values?.id}</RowHandler></td>
-      <td>{values?.firstName}</td>
+      <td><RowHandler>{values?.id} Cũng move được</RowHandler></td>
+      <td>
+        <input type="text"/>
+        {values?.firstName}
+        </td>
       <td>
         {/* <NewComponent /> */}
         {values?.id === "She" && <MyTableChildren />}
