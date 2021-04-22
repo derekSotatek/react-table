@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 const DND_ITEM_TYPE = 'row';
-const Row = ({ row, index, moveRow, moveRowUp, moveRowDown }) => {
+const Row = ({ row, index, moveRow, moveRowUp, moveRowDown, oldRows }) => {
   const dropRef = useRef(null);
   const dragRef = useRef(null);
 
@@ -70,10 +70,10 @@ const Row = ({ row, index, moveRow, moveRowUp, moveRowDown }) => {
         <button ref={dragRef}>
           move
         </button>
-        <button onClick={() => moveRowUp(index)}>
+        <button onClick={() => moveRowUp(index, oldRows)}>
           up
         </button>
-        <button onClick={() => moveRowDown(index)}>
+        <button onClick={() => moveRowDown(index, oldRows)}>
           down
         </button>
       </td>

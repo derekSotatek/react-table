@@ -35,6 +35,78 @@ const fakeData = [
     status: "relationship",
     visits: 13,
   },
+  {
+    age: 15,
+    firstName: "derek",
+    id: 3,
+    lastName: "derek",
+    progress: 37,
+    status: "relationship",
+    visits: 13,
+  },
+  {
+    age: 15,
+    firstName: "derek",
+    id: 4,
+    lastName: "derek",
+    progress: 37,
+    status: "relationship",
+    visits: 13,
+  },
+  {
+    age: 15,
+    firstName: "derek",
+    id: 5,
+    lastName: "derek",
+    progress: 37,
+    status: "relationship",
+    visits: 13,
+  },
+  {
+    age: 15,
+    firstName: "derek",
+    id: 6,
+    lastName: "derek",
+    progress: 37,
+    status: "relationship",
+    visits: 13,
+  },
+  {
+    age: 15,
+    firstName: "derek",
+    id: 7,
+    lastName: "derek",
+    progress: 37,
+    status: "relationship",
+    visits: 13,
+  },
+  {
+    age: 15,
+    firstName: "derek",
+    id: 8,
+    lastName: "derek",
+    progress: 37,
+    status: "relationship",
+    visits: 13,
+  },
+  {
+    age: 15,
+    firstName: "derek",
+    id: 9,
+    lastName: "derek",
+    progress: 37,
+    status: "relationship",
+    visits: 13,
+  },
+  {
+    age: 15,
+    firstName: "derek",
+    id: 10,
+    lastName: "derek",
+    progress: 37,
+    status: "relationship",
+    visits: 13,
+  },
 ];
 
 const fakeColumns = [
@@ -80,6 +152,7 @@ const Table = () => {
     headerGroups,
     rows,
     prepareRow,
+    toggleRowSelected,
   } = useTable(
     {
       data: records,
@@ -112,24 +185,46 @@ const Table = () => {
     useRowSelect,
   );
 
-  const moveRow = (dragIndex, hoverIndex) => {
+  const moveRow = (dragIndex, hoverIndex, oldRecords, isArrowMove = false) => {
     const dragRecord = records[dragIndex];
-    setRecords(update(records, {
+    const newRecords = update(records, {
       $splice: [
         [dragIndex, 1],
         [hoverIndex, 0, dragRecord],
       ],
-    }));
+    });
+    setRecords(newRecords);
+
+    if (isArrowMove) {
+      setTimeout(() => {
+        oldRecords.forEach((r) => {
+          newRecords.forEach((n,i)=>{
+            if(r.values.id ===  n.id){
+              toggleRowSelected(i, r.isSelected);
+            }
+          })
+        });
+      });
+      return;
+    }
+
+    oldRecords.forEach((r) => {
+      newRecords.forEach((n,i)=>{
+        if(r.values.id ===  n.id){
+          toggleRowSelected(i, r.isSelected);
+        }
+      })
+    });
   };
 
-  const moveRowUp = (moveIndex) => {
+  const moveRowUp = (moveIndex, oldRows) => {
     const targetIndex = moveIndex - 1;
-    moveRow(moveIndex, targetIndex);
+    moveRow(moveIndex, targetIndex, oldRows, true);
   };
 
-  const moveRowDown = (moveIndex) => {
+  const moveRowDown = (moveIndex, oldRows) => {
     const targetIndex = moveIndex + 1;
-    moveRow(moveIndex, targetIndex);
+    moveRow(moveIndex, targetIndex, oldRows, true);
   };
 
   return (
@@ -157,10 +252,11 @@ const Table = () => {
                 <Row
                   index={index}
                   row={row}
-                  moveRow={moveRow}
+                  moveRow={(dragIndex, hoverIndex) => moveRow(dragIndex, hoverIndex, rows)}
                   moveRowUp={moveRowUp}
                   moveRowDown={moveRowDown}
                   {...row.getRowProps()}
+                  oldRows={rows}
                 />
               )
           )}
