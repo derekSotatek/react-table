@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import SmartTable from "./smart-table";
 
 // import "./styles.scss";
-import MyTable from "./TableParent/MyTable";
+
 
 function App() {
   return (
     <div className="App">
-      <MyTable />
+      <SmartTable />
     </div>
   );
 }

@@ -1,135 +1,83 @@
-export const ITEMS = [
+const ITEMS = [
   {
-    move: "She",
-    id: "was",
-    firstName: "a",
-    basic: "fast"
+    fieldName: "first field",
+    id: 0,
+    format: "first format",
+    config: "first config",
+    column: 'first column',
+    margin: 'first margin'
   },
   {
-    move: "machine",
-    id: "She",
-    firstName: "kept",
-    basic: "her"
+    fieldName: "second field",
+    id: 1,
+    format: "second format",
+    config: "second config",
+    column: 'second column',
+    margin: 'second margin'
   },
   {
-    move: "motor",
-    id: "clean",
-    firstName: "She",
-    basic: "was"
+    fieldName: "third field",
+    id: 2,
+    format: "third format",
+    config: "third config",
+    column: 'third column',
+    margin: 'third margin'
   },
   {
-    move: "the",
-    id: "best",
-    firstName: "damn",
-    basic: "woman"
+    fieldName: "forth field",
+    id: 3,
+    format: "forth format",
+    config: "forth config",
+    column: 'forth column',
+    margin: 'forth margin'
   },
   {
-    move: "I",
-    id: "had",
-    firstName: "ever",
-    basic: "seen"
+    fieldName: "fifth field",
+    id: 4,
+    format: "fifth format",
+    config: "fifth config",
+    column: 'fifth column',
+    margin: 'fifth margin'
   },
-  {
-    move: "She",
-    id: "had",
-    firstName: "the",
-    basic: "sightless"
-  },
-  {
-    move: "eyes",
-    id: "telling",
-    firstName: "me",
-    basic: "no"
-  },
-  {
-    move: "lies",
-    id: "knockin'",
-    firstName: "me",
-    basic: "out"
-  },
-  {
-    move: "with",
-    id: "those",
-    firstName: "American",
-    basic: "thighs"
-  },
-  {
-    move: "taking",
-    id: "more",
-    firstName: "than",
-    basic: "her"
-  },
-  {
-    move: "share",
-    id: "had",
-    firstName: "me",
-    basic: "fighting"
-  },
-  {
-    move: "for",
-    id: "air",
-    firstName: "She",
-    basic: "told"
-  },
-  {
-    move: "me",
-    id: "to",
-    firstName: "come",
-    basic: "but"
-  },
-  {
-    move: "I",
-    id: "was",
-    firstName: "already",
-    basic: "there"
-  },
-  {
-    move: "'cause",
-    id: "the",
-    firstName: "walls",
-    basic: "start"
-  },
-  {
-    move: "shaking",
-    id: "the",
-    firstName: "earth",
-    basic: "was"
-  },
-  {
-    move: "quaking",
-    id: "my",
-    firstName: "mind",
-    basic: "was"
-  },
-  {
-    move: "aching",
-    id: "and",
-    firstName: "we",
-    basic: "were"
-  },
-  {
-    move: "making",
-    id: "it",
-    firstName: "and",
-    basic: "you"
-  }
 ];
 
-export const fakeColumns = [
+const fakeColumns = [
   {
-    Header: 'Move',
-    accessor: 'move',
+    Header: 'Actions',
+    accessor: 'action',
     sortType: 'basic',
   },
   {
-    Header: 'ID',
+    Header: 'No',
     accessor: 'id',
     sortType: 'basic',
   },
+
   {
-    Header: 'First Name',
-    accessor: 'firstName',
+    Header: 'Field Name',
+    accessor: 'fieldName',
     sortType: 'basic'
   },
-  
+  {
+    Header: 'Format',
+    accessor: 'format',
+    sortType: 'basic'
+  },
+  {
+    Header: 'Config',
+    accessor: 'config',
+    sortType: 'basic'
+  },
+  {
+    Header: 'Column',
+    accessor: 'column',
+    sortType: 'basic'
+  },
+  {
+    Header: 'Margin',
+    accessor: 'margin',
+    sortType: 'basic'
+  },
 ];
+
+export { ITEMS, fakeColumns }
