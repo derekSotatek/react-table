@@ -3,16 +3,13 @@ import { SortableHandle } from "react-sortable-hoc";
 import styled from "styled-components";
 import MyTableChildren from "../table-children/TableChildren/MyTableChildren";
 
-
 const Handle = styled.div`
   margin-right: 10px;
   padding: 0 5px;
   cursor: grab;
 `;
 
-// const RowHandler = SortableHandle(() => <Handle className="handle">Move</Handle>);
 const RowHandler = SortableHandle(({ children }) => <Handle className="handle">{children || "A"}</Handle>);
-
 
 const TableRow = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disableRowDown = false, cell }) => {
   return (
@@ -33,25 +30,22 @@ const TableRow = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disabl
       <td>
         {values?.id}
       </td>
-
       <td>
         <RowHandler>{values?.fieldName}</RowHandler></td>
       <td>
-        <div class="form-group">
+        <div className="form-group">
           <input className="form-control" value={values?.format} />
         </div>
       </td>
       <td>
         <MyTableChildren />
       </td>
-
       <td>
         {values?.column}
       </td>
       <td>
         {values?.margin}
       </td>
-
     </tr>
   );
 };
