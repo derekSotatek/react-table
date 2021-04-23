@@ -1,6 +1,7 @@
 button {
     border: none;
     margin: 4px;
+    background: none;
 }
 td {
     vertical-align: middle;

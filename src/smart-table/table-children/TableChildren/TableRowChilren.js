@@ -1,6 +1,14 @@
 import React from "react";
 
-const TableRowChilren = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disableRowDown = false }) => {
+const TableRowChilren = ({
+   values,
+   moveRowDown,
+   moveRowUp,
+   disableRowUp = false,
+   disableRowDown = false,
+   addRow,
+   removeRow,
+}) => {
   return (
     <tr >
       <td>
@@ -20,7 +28,20 @@ const TableRowChilren = ({ values, moveRowDown, moveRowUp, disableRowUp = false,
           <input className="form-control" value={values?.rowData} />
         </div>
       </td>
-
+      <td>
+        <div className="add-remove">
+          <div>
+            <button onClick={addRow}>
+              <i className="fas fa-plus"/>
+            </button>
+          </div>
+        <div>
+          <button onClick={removeRow}>
+            <i className="fas fa-minus" />
+          </button>
+        </div>
+        </div>
+      </td>
     </tr>
   );
 };

@@ -25,12 +25,14 @@ const MyTableChildren = ({ listItem = [
     {
       Header: '',
       accessor: 'rowData',
-      sortType: 'basic',
     },
     {
       Header: '',
       accessor: 'actions',
-      sortType: 'basic',
+    },
+    {
+      Header: '',
+      accessor: 'addRemove',
     },
   ]
 }) => {
@@ -56,6 +58,21 @@ const MyTableChildren = ({ listItem = [
     useSortBy,
     useRowSelect,
   );
+
+  const addRow = (index) => {
+    const defaultNewItem = {
+      rowData: '',
+    };
+    const cloneItems = [...items];
+    cloneItems.splice(index + 1, 0, defaultNewItem);
+    setItems(cloneItems);
+  };
+
+  const removeRow = (index) => {
+    const cloneItems = [...items];
+    cloneItems.splice(index, 1);
+    setItems(cloneItems);
+  };
 
   if (!columsConfig.length) return "not data";
 
@@ -83,6 +100,8 @@ const MyTableChildren = ({ listItem = [
               cell={value}
               disableRowUp={index === 0}
               disableRowDown={index === rows.length - 1}
+              addRow={() => addRow(index)}
+              removeRow={() => removeRow(index)}
             />
           ))}
         </SortableCont>
