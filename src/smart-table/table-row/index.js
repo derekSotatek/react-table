@@ -19,13 +19,16 @@ const TableRow = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disabl
     <tr >
       <td {...cell.cells[0].getCellProps()}>{cell.cells[0].render('Cell')}</td>
       <td>
-
-        <button disabled={disableRowUp} onClick={() => moveRowUp()}>
-          <i class="fas fa-chevron-up"></i>
-        </button>
-        <button disabled={disableRowDown} onClick={() => moveRowDown()}>
-          <i class="fas fa-chevron-down"></i>
-        </button>
+        <div>
+          <button disabled={disableRowUp} onClick={() => moveRowUp()}>
+            <i className="fas fa-chevron-up" />
+          </button>
+        </div>
+        <div>
+          <button disabled={disableRowDown} onClick={() => moveRowDown()}>
+            <i className="fas fa-chevron-down" />
+          </button>
+        </div>
       </td>
       <td>
         {values?.id}

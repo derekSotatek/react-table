@@ -2,9 +2,7 @@ import React, { useState, useCallback } from "react";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
 import arrayMove from "../../utils";
 import { useRowSelect, useSortBy, useTable } from "react-table";
-// import IndeterminateCheckbox from "../../indeterminate-checkbox";
 import TableRowChilren from "./TableRowChilren";
-
 
 const SortableCont = SortableContainer(({ children, getTableBodyProps }) => {
   return <tbody {...getTableBodyProps()}>{children}</tbody>;
@@ -48,7 +46,6 @@ const MyTableChildren = ({ listItem = [
   const {
     getTableProps,
     getTableBodyProps,
-    headerGroups,
     rows,
     prepareRow,
   } = useTable(
@@ -60,24 +57,11 @@ const MyTableChildren = ({ listItem = [
     useRowSelect,
   );
 
-  if (columsConfig.length <= 0) return "not data";
+  if (!columsConfig.length) return "not data";
+
   return (
     <div>
       <table className="table" {...getTableProps()}>
-        <thead>
-          {/* {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render('Header')}
-                  <span>
-                    {column.isSorted ? column.isSortedDesc ? 'down' : 'up' : ''}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))} */}
-        </thead>
         <SortableCont
           getTableBodyProps={getTableBodyProps}
           onSortEnd={onSortEnd}
@@ -90,8 +74,8 @@ const MyTableChildren = ({ listItem = [
         >
           {rows.map((value, index) => prepareRow(value) || (
             <SortableItem
-              moveRowUp={() => { index > 0 && onSortEnd({ oldIndex: index, newIndex: index - 1 }) }}
-              moveRowDown={() => { index < rows.length && onSortEnd({ oldIndex: index, newIndex: index + 1 }) }}
+              moveRowUp={() => { onSortEnd({ oldIndex: index, newIndex: index - 1 }) }}
+              moveRowDown={() => { onSortEnd({ oldIndex: index, newIndex: index + 1 }) }}
               key={`item-${index}`}
               index={index}
               isSelected={value.isSelected}

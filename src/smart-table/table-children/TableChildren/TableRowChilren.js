@@ -1,32 +1,22 @@
 import React from "react";
-import { SortableHandle } from "react-sortable-hoc";
-import styled from "styled-components";
 
-
-const Handle = styled.div`
-  margin-right: 10px;
-  padding: 0 5px;
-  cursor: grab;
-`;
-
-// const RowHandler = SortableHandle(() => <Handle className="handle">Move</Handle>);
-const RowHandler = SortableHandle(({ children }) => <Handle className="handle">{children || "A"}</Handle>);
-
-
-
-const TableRowChilren = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disableRowDown = false, onPick, cell }) => {
+const TableRowChilren = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disableRowDown = false }) => {
   return (
     <tr >
       <td>
-        <button disabled={disableRowUp} onClick={() => moveRowUp()}>
-          <i class="fas fa-chevron-up"></i>
-        </button>
-        <button disabled={disableRowDown} onClick={() => moveRowDown()}>
-          <i class="fas fa-chevron-down"></i>
-        </button>
+        <div>
+          <button disabled={disableRowUp} onClick={() => moveRowUp()}>
+            <i className="fas fa-chevron-up" />
+          </button>
+        </div>
+        <div>
+          <button disabled={disableRowDown} onClick={() => moveRowDown()}>
+            <i className="fas fa-chevron-down"/>
+          </button>
+        </div>
       </td>
       <td>
-        <div class="form-group">
+        <div className="form-group">
           <input className="form-control" value={values?.rowData} />
         </div>
       </td>

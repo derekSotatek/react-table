@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
 import { useRowSelect, useSortBy, useTable } from "react-table";
 import { fakeColumns, ITEMS } from "../data";
 import IndeterminateCheckbox from "./indeterminate-checkbox";
 import TableRow from "./table-row";
-import arrayMove from "./utils";
 import update from 'immutability-helper';
 import "./style.css";
 
