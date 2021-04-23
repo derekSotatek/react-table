@@ -44,7 +44,9 @@ const MyTableChildren = ({ listItem = [
     setItems(oldItems => arrayMove(oldItems, oldIndex, newIndex));
   }, []);
 
-
+  const onInsertRow = async (index) => {
+    
+  }
   const {
     getTableProps,
     getTableBodyProps,
@@ -99,6 +101,7 @@ const MyTableChildren = ({ listItem = [
               cell={value}
               disableRowUp={index === 0}
               disableRowDown={index === rows.length - 1}
+              onInsertRow={() => onInsertRow(index + 1)}
             />
           ))}
         </SortableCont>

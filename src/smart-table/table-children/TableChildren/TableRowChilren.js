@@ -14,21 +14,26 @@ const RowHandler = SortableHandle(({ children }) => <Handle className="handle">{
 
 
 
-const TableRowChilren = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disableRowDown = false, onPick, cell }) => {
+const TableRowChilren = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disableRowDown = false, onInsertRow = null }) => {
   return (
     <tr >
       <td>
         <button disabled={disableRowUp} onClick={() => moveRowUp()}>
-          <i class="fas fa-chevron-up"></i>
+          <i className="fas fa-chevron-up"></i>
         </button>
         <button disabled={disableRowDown} onClick={() => moveRowDown()}>
-          <i class="fas fa-chevron-down"></i>
+          <i className="fas fa-chevron-down"></i>
         </button>
       </td>
       <td>
-        <div class="form-group">
+        <div className="form-group">
           <input className="form-control" value={values?.rowData} />
         </div>
+      </td>
+      <td>
+        <button onClick={onInsertRow}>
+          <i className="fas fa-plus"></i>
+        </button>
       </td>
 
     </tr>

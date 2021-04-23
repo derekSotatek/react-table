@@ -21,10 +21,10 @@ const TableRow = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disabl
       <td>
 
         <button disabled={disableRowUp} onClick={() => moveRowUp()}>
-          <i class="fas fa-chevron-up"></i>
+          <i className="fas fa-chevron-up"></i>
         </button>
         <button disabled={disableRowDown} onClick={() => moveRowDown()}>
-          <i class="fas fa-chevron-down"></i>
+          <i className="fas fa-chevron-down"></i>
         </button>
       </td>
       <td>
@@ -34,7 +34,7 @@ const TableRow = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disabl
       <td>
         <RowHandler>{values?.fieldName}</RowHandler></td>
       <td>
-        <div class="form-group">
+        <div className="form-group">
           <input className="form-control" value={values?.format} />
         </div>
       </td>
