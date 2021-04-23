@@ -100,7 +100,11 @@ const SmartTable = (props) => {
                                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                                     {column.render('Header')}
                                     <span>
-                                        {column.isSorted ? column.isSortedDesc ? 'down' : 'up' : ''}
+                                        {column.isSorted ? column.isSortedDesc ? (
+                                          <i className="fas fa-chevron-down" />
+                                        ) : (
+                                          <i className="fas fa-chevron-up" />
+                                        ) : ''}
                                     </span>
                                 </th>
                             ))}
