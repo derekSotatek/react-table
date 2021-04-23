@@ -6,10 +6,10 @@ import MyTableChildren from "../table-children/TableChildren/MyTableChildren";
 const Handle = styled.div`
   margin-right: 10px;
   padding: 0 5px;
-  cursor: grab;
+  cursor: move;
 `;
 
-const RowHandler = SortableHandle(({ children }) => <Handle className="handle">{children || "A"}</Handle>);
+const RowHandler = SortableHandle(({ children }) => <Handle className="handle">{children}</Handle>);
 
 const TableRow = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disableRowDown = false, cell }) => {
   return (
@@ -28,8 +28,9 @@ const TableRow = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disabl
         </div>
       </td>
       <td>
-        {values?.id}
+        <RowHandler>{values?.id}</RowHandler>
       </td>
+
       <td>
         <RowHandler>{values?.fieldName}</RowHandler></td>
       <td>
@@ -40,11 +41,12 @@ const TableRow = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disabl
       <td>
         <MyTableChildren />
       </td>
+
       <td>
-        {values?.column}
+        <RowHandler>{values?.column}</RowHandler>
       </td>
       <td>
-        {values?.margin}
+        <RowHandler>{values?.margin}</RowHandler>
       </td>
     </tr>
   );
