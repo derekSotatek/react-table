@@ -6,3 +6,7 @@ button {
 td {
     vertical-align: middle;
 }
+
+.handle {
+    cursor: move;
+}

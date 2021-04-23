@@ -1,6 +1,8 @@
 import React from "react";
+import { SortableHandle } from "react-sortable-hoc";
+const RowHandler = SortableHandle(({ children }) => <div className="handle">{children}</div>);
 
-const TableRowChilren = ({
+const TableRowChildren = ({
    values,
    moveRowDown,
    moveRowUp,
@@ -42,8 +44,11 @@ const TableRowChilren = ({
         </div>
         </div>
       </td>
+      <td>
+        <RowHandler><i className="fas fa-expand-arrows-alt" /></RowHandler>
+      </td>
     </tr>
   );
 };
 
-export default TableRowChilren;
+export default TableRowChildren;

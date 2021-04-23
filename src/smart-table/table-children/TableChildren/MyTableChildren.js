@@ -2,13 +2,13 @@ import React, { useState, useCallback } from "react";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
 import arrayMove from "../../utils";
 import { useRowSelect, useSortBy, useTable } from "react-table";
-import TableRowChilren from "./TableRowChilren";
+import TableRowChildren from "./TableRowChildren";
 
 const SortableCont = SortableContainer(({ children, getTableBodyProps }) => {
   return <tbody {...getTableBodyProps()}>{children}</tbody>;
 });
 
-const SortableItem = SortableElement(props => <TableRowChilren {...props} />);
+const SortableItem = SortableElement(props => <TableRowChildren {...props} />);
 const MyTableChildren = ({ listItem = [
   {
     rowData: 'abc',
@@ -33,6 +33,10 @@ const MyTableChildren = ({ listItem = [
     {
       Header: '',
       accessor: 'addRemove',
+    },
+    {
+      Header: '',
+      accessor: 'move',
     },
   ]
 }) => {
