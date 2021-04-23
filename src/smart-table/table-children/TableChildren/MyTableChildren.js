@@ -82,7 +82,7 @@ const MyTableChildren = ({ listItem = [
 
   return (
     <div>
-      <table className="table" {...getTableProps()}>
+      <table className="table as-sortable-dragging" {...getTableProps()}>
         <SortableCont
           getTableBodyProps={getTableBodyProps}
           onSortEnd={onSortEnd}

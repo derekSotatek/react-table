@@ -19,3 +19,11 @@ td {
     align-items: center;
     padding: .5rem .5rem;
 }
+
+.as-sortable-dragging {
+    display: table !important;
+}
+
+.as-sortable-dragging td {
+    display: table-cell !important;
+}

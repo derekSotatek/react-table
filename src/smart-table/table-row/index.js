@@ -8,12 +8,25 @@ const Handle = styled.div`
   padding: 0 5px;
   cursor: move;
 `;
+const TrWrapper = styled.tr`
+  /* background: blue; */
+  /* border: solid; */
+  /* cursor: default;
+  .firstElement {
+    display: flex;
+    flex-direction: row;
+  } */
+   td {
+      width: 1000px;
+    }
+  
+`;
 
 const RowHandler = SortableHandle(({ children }) => <Handle className="handle">{children}</Handle>);
 
 const TableRow = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disableRowDown = false, cell }) => {
   return (
-    <tr >
+    <TrWrapper >
       <td {...cell.cells[0].getCellProps()}>{cell.cells[0].render('Cell')}</td>
       <td>
         <div>
@@ -48,7 +61,7 @@ const TableRow = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disabl
       <td>
         <RowHandler>{values?.margin}</RowHandler>
       </td>
-    </tr>
+    </TrWrapper>
   );
 };
 

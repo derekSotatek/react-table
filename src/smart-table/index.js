@@ -92,7 +92,7 @@ const SmartTable = (props) => {
     };
     return (
         <div>
-            <table className="table table-bordered" {...getTableProps()}>
+            <table className="table table-bordered as-sortable-dragging" {...getTableProps()}>
                 <thead>
                     {headerGroups.map(headerGroup => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
