@@ -122,6 +122,7 @@ const SmartTable = (props) => {
                     lockToContainerEdges={true}
                     lockOffset={["30%", "50%"]}
                     useDragHandle={true}
+                    useWindowAsScrollContainer
                 >
                     {rows.map((value, index) => prepareRow(value) || (
                         <SortableTRow
