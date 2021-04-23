@@ -6,6 +6,7 @@ button {
 td {
     vertical-align: middle;
     position: relative;
+    width: 1000px;
 }
 
 .handle {
