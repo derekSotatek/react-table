@@ -41,6 +41,9 @@ const SmartTable = (props) => {
                             <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
                         </div>
                     ),
+                    style: {
+                        width: '50px',
+                    }
                 },
                 ...columns,
             ])
@@ -97,7 +100,7 @@ const SmartTable = (props) => {
                     {headerGroups.map(headerGroup => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                <th {...column.getHeaderProps(column.getSortByToggleProps())} style={column.style || {}}>
                                     {column.render('Header')}
                                     <span>
                                         {column.isSorted ? column.isSortedDesc ? (

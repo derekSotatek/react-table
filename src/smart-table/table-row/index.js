@@ -6,8 +6,13 @@ const RowHandler = SortableHandle(({ children }) => <div className="handle">{chi
 const TableRow = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disableRowDown = false, cell }) => {
   return (
     <tr >
-      <td {...cell.cells[0].getCellProps()}>{cell.cells[0].render('Cell')}</td>
-      <td>
+      <td
+        {...cell.cells[0].getCellProps()}
+        style={cell.cells[0].column.style}
+      >
+        {cell.cells[0].render('Cell')}
+      </td>
+      <td style={cell.cells[1].column.style}>
         <div>
           <button disabled={disableRowUp} onClick={() => moveRowUp()}>
             <i className="fas fa-chevron-up" />
@@ -19,7 +24,7 @@ const TableRow = ({ values, moveRowDown, moveRowUp, disableRowUp = false, disabl
           </button>
         </div>
       </td>
-      <td>
+      <td style={cell.cells[2].column.style}>
         <RowHandler>{values?.id}</RowHandler>
       </td>
 

@@ -5,7 +5,7 @@ const ITEMS = [
     format: "first format",
     config: "first config",
     column: 'first column',
-    margin: 'first margin'
+    margin: 'first margin',
   },
   {
     fieldName: "second field",
@@ -46,11 +46,17 @@ const fakeColumns = [
     Header: 'Actions',
     accessor: 'action',
     sortType: 'basic',
+    style: {
+      width: '100px',
+    }
   },
   {
     Header: 'No',
     accessor: 'id',
     sortType: 'basic',
+    style: {
+      width: '100px',
+    }
   },
 
   {
